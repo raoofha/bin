@@ -8,8 +8,7 @@ get_pts (){
 get_pts
 if [ "$PTS" = "" ]
 then
-  urxvt -e zsh -is eval "cd $PWD ; trap 'echo -ne \"\e]0;URXVTEVAL-\$TTY\007\"' DEBUG" &
-  sleep 0.5
-  get_pts
+  urxvt -e zsh -is eval "cd $PWD ; trap 'echo -ne \"\e]0;URXVTEVAL-\$TTY\007\"' DEBUG ; $@"
+else
+  ttyecho -n $PTS $@
 fi
-ttyecho -n $PTS $@
