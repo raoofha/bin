@@ -14,8 +14,10 @@ request(encodeURI(`https://tatoeba.org/eng/sentences/search?query=${word}&from=$
     const $ = cheerio.load(body);
     $(".section md-icon").remove()
     $(".section md-button").each(function (i, el){
-      let l = $(this).attr("href").substring($(this).attr("href").lastIndexOf("/"))
-      $(this).after(`<a href="https://audio.tatoeba.org/sentences/${langT}/${l}.mp3">${$(this).parent().text()}</a>`)
+      let lname = $(this).attr("href")
+      let l = lname.substring(lname.lastIndexOf("/"))
+      $(this).parent().before(`<div><a href="https://audio.tatoeba.org/sentences/${langT}/${l}.mp3">${langT}</a>${$(this).parent().text()}</div>`)
+      $(this).parent().remove()
     })
     $(".section .lang").remove()
     $(".section h2").remove()
