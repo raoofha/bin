@@ -10,8 +10,9 @@ if [ "$PTS" = "" ]
 then
   #urxvt -e zsh -is eval "cd $PWD ; trap 'echo -ne \"\e]0;TERMVIMEVAL-\$TTY\007\"' DEBUG ; vim -c \"set titlestring=TERMVIMEVAL-\$TTY | set title  | $@\""
   #urxvt -e zsh -is eval "cd $PWD ; trap 'echo -ne \"\e]0;$PWD/TERMVIMEVAL-\$TTY\007\"' DEBUG ; vim -c \"set titlestring=$PWD/TERMVIMEVAL\\\$\$TTY | set title  | $@\""
-  xterm -e bash --init-file <(echo "cd $PWD ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMVIMEVAL\\\$\$TTY\007\"' DEBUG ; vim -c \"set titlestring=$PWD/TERMVIMEVAL\\\$\$TTY | set title  | $@\"")
+  xterm -class XTERMVIM -e bash --init-file <(echo "cd $PWD ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMVIMEVAL\\\$\$TTY\007\"' DEBUG ; vim -c \"set titlestring=$PWD/TERMVIMEVAL\\\$\$TTY | set title  | $@\"")
 else
   ttyecho -n $PTS "$@ | silent !echo -ne \"\\e[5t\""
   ttyecho -n $PTS :redraw!
+  xdotool windowactivate $(xdotool search --class XTERMVIM | tail -1)
 fi

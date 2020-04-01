@@ -1,0 +1,18 @@
+#!/bin/bash
+
+args="${1#*:}"
+#xterm -hold -e echo $args
+#SHELL=/bin/bash xterm -e "echo $args ; while [[ $k == '^W' ]]; do read -n 1 -s k ; done"
+#SHELL=/bin/bash xterm -b 10 -borderwidth 0 -geometry 211x57-3+32 -class "floating-no-border" -e "echo $args ; read -n 1 -s ; "
+
+#SHELL=/bin/bash xterm -b 10 -geometry 211x57+0+32 -class "floating-no-border" -e "echo $args ; read -n 1 -s ; "
+SHELL=/bin/bash xterm -b 10 -e "echo $args ; read -n 1 -s ; "
+
+#chrome_win=`xdotool getactivewindow`
+#SHELL=/bin/bash xterm -b 10 -geometry 211x57+0+32 -class "floating-no-border" -e "echo $args ; read -n 1 -s ; " &
+#xterm_pid=$!
+#sleep 1
+#xterm_win=`xdotool search --pid $xterm_pid`
+#notify-send $xterm_win/$xterm_pid/yeah
+#notify-send $xterm_win/noo
+#xdotool windowreparent $xterm_win $chrome_win

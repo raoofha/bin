@@ -1,0 +1,20 @@
+#!/bin/bash
+
+get_pts (){
+  IN=$(wmctrl -l | awk "{print \$4}" | grep "$PWD/TERMEVAL")
+  arrIN=(${IN//\$/ })
+  PTS=${arrIN[1]}
+}
+get_pts
+if [ "$PTS" = "" ]
+then
+  #urxvt -e zsh -is eval "cd $PWD ; trap 'echo -ne \"\e]0;$PWD/TERMEVAL\\\$\$TTY\007\"' DEBUG ; $@"
+  #urxvt -e bash --init-file <(echo "cd $PWD ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMEVAL\\\$\$TTY\007\"' DEBUG ; $@")
+  #xterm -e bash --init-file <(echo "cd $PWD ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMEVAL\\\$\$TTY\007\"' DEBUG ; $@")
+  #xterm -e bash --init-file <(echo "source ~/.bashrc; cd $PWD ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMEVAL\\\$\$TTY\007\"' DEBUG ; $@")
+  #xterm -xrm "xterm*allowTitleOps: false" -T "$PWD/TERMEVAL\$$TTY" -e bash --init-file <(echo "cd $PWD ; $@")
+  xterm -e bash --init-file <(echo "source ~/.bashrc; cd $PWD ; PS1='${debian_chroot:+($debian_chroot)}\h \w » ' ; TTY=\`tty\` ; trap 'echo -ne \"\e]0;$PWD/TERMEVAL\\\$\$TTY\007\"' DEBUG ; $@")
+    
+else
+  ttyecho -n $PTS $@
+fi

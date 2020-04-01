@@ -38,7 +38,10 @@ if (!fs.existsSync(f)) {
         const f_uk = `${fdir}/uk/${word}.mp3`
         exec(`curl -sfo ${w} --create-dirs ${adr}`,play);
         exec(`curl -sfo ${w_uk} --create-dirs ${adr_uk}`);
-        if(w !== f_us){
+        console.log(w);
+        console.log(w_uk);
+        console.log(wrd, word);
+        if(wrd !== word){
           exec(`ln -s ${w} ${f_us}`);
           exec(`ln -s ${w_uk} ${f_uk}`);
         }
