@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function join_by { local IFS="$1"; shift; echo "$*"; }
+
+_date=
+backupdir="backup/`date +"%Y%m%d%H%M%S"`_`join_by - ${@:1}`"
+backuplist=`find . -maxdepth 1 -not -path . -not -path ./backup -not -path ./.git -not -path ./node_modules`
+#echo $backupdir $backuplistdir
+mkdir -p $backupdir
+cp -r $backuplist $backupdir
